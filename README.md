@@ -44,7 +44,9 @@ export I18NEXT_AI_TRANSLATOR_BUNDLE_REFERENCE_FOLDER=./documentation/bundleRefer
 npx i18next-ai-translator ./myLocalesFolder
 ```
 
-# You can specify a i18nextScanner.config.js to extract automatically the name of the defaultValue (__STRING_NOT_TRANSLATED__ by default)
+# Using custom default values
+
+You can specify a i18nextScanner.config.js to extract automatically the name of the defaultValue (__STRING_NOT_TRANSLATED__ by default)
 
 ```sh
 export I18NEXT_AI_TRANSLATOR_CONFIG=./config/.i18nextScanner.config.js
