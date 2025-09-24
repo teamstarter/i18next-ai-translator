@@ -1,0 +1,56 @@
+{
+  "name": "@teamstarter/i18next-ai-translator",
+  "version": "1.0.0",
+  "description": "Fill un-translated keys of i18next language bundles using reference knowledge files.",
+  "main": "dist/index.js",
+  "types": "dist/types/*",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "bin/**/*.js"
+  ],
+  "bin": {
+    "i18next-ai-translator": "./bin/i18next-ai-translator.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rm -rf dist/*",
+    "dev": "ts-node ./src/index.ts",
+    "start": "node ./bin/i18next-ai-translator.js",
+    "compile": "npm run clean && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamstarter/i18next-ai-translator.git"
+  },
+  "keywords": [
+    "i18next",
+    "translation",
+    "ai",
+    "chatgpt",
+    "localization",
+    "internationalization"
+  ],
+  "author": {
+    "name": "Bléza Plegnon",
+    "email": "bleza.plg@gmail.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamstarter/i18next-ai-translator/issues"
+  },
+  "homepage": "https://github.com/teamstarter/i18next-ai-translator#readme",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "openai": "^5.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "typescript": "^5.9.2",
+    "ts-node": "^10.9.2"
+  }
+}
