@@ -9,10 +9,10 @@ export function loadConfig(): Config {
    
     if (!apiKey) {
       throw new Error(
-        'Clé API manquante !\n' +
-        'Définissez la variable I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY\n' +
-        'Exemple: export I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY=votre-clé\n' +
-        'Ou utilisez un fichier .env'
+        'API key missing !\n' +
+        'Set the variable I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY\n' +
+        'Example: export I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY=your-key\n' +
+        'Or use a .env file'
       );
     }
     
