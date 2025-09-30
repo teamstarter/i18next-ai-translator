@@ -21,7 +21,13 @@
     "dev": "ts-node ./src/index.ts",
     "start": "node ./bin/i18next-ai-translator.js",
     "compile": "npm run clean && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint --ext .js,.ts",
+    "lint:fix": "eslint --ext .js,.ts --fix",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\""
   },
   "repository": {
     "type": "git",
@@ -45,12 +51,28 @@
   },
   "homepage": "https://github.com/teamstarter/i18next-ai-translator#readme",
   "dependencies": {
+    "debug": "^4.4.3",
     "dotenv": "^17.2.2",
     "openai": "^5.23.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/debug": "^4.1.12",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.4.0",
+    "jest": "^30.2.0",
+    "jiti": "^2.6.0",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.2",
-    "ts-node": "^10.9.2"
+    "typescript-eslint": "^8.45.0"
   }
 }
