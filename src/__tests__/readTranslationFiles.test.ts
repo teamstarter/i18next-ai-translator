@@ -20,7 +20,6 @@ describe('readTranslationFiles', () => {
   });
 
   it('should read multiple JSON translation files', () => {
-    // Préparer
     fs.mkdirSync(TEST_DIR, { recursive: true });
     fs.writeFileSync(path.join(TEST_DIR, 'en.json'), JSON.stringify({ key: 'English' }));
     fs.writeFileSync(path.join(TEST_DIR, 'fr.json'), JSON.stringify({ key: 'Français' }));
@@ -66,6 +65,7 @@ describe('readTranslationFiles', () => {
   });
 
   it('should include correct file path in result', () => {
+    // Préparer
     fs.mkdirSync(TEST_DIR, { recursive: true });
     fs.writeFileSync(path.join(TEST_DIR, 'en.json'), JSON.stringify({ key: 'value' }));
 
@@ -88,7 +88,13 @@ describe('readTranslationFiles', () => {
 
     const result = readTranslationFiles(TEST_DIR);
 
-    expect(result).toMatchSnapshot();
+    expect(result).toHaveLength(1);
+    expect(result[0].filePath).toBe(path.join(TEST_DIR, 'en.json'));
+
+    expect({
+      locale: result[0].locale,
+      translations: result[0].translations,
+    }).toMatchSnapshot();
 
     fs.rmSync(TEST_DIR, { recursive: true, force: true });
   });
