@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`readTranslationFiles should match snapshot for translation files structure 1`] = `
+{
+  "locale": "en",
+  "translations": {
+    "nested": {
+      "key": "value",
+    },
+    "welcome": "Welcome",
+  },
+}
+`;

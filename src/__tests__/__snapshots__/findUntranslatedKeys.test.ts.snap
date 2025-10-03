@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`findUntranslatedKeys should match snapshot for complex nested structure 1`] = `
+[
+  {
+    "filePath": "/test/en.json",
+    "keyPath": [
+      "login",
+    ],
+    "locale": "en",
+  },
+  {
+    "filePath": "/test/en.json",
+    "keyPath": [
+      "logout",
+    ],
+    "locale": "en",
+  },
+  {
+    "filePath": "/test/en.json",
+    "keyPath": [
+      "profile",
+      "title",
+    ],
+    "locale": "en",
+  },
+  {
+    "filePath": "/test/en.json",
+    "keyPath": [
+      "profile",
+      "settings",
+      "privacy",
+    ],
+    "locale": "en",
+  },
+]
+`;
