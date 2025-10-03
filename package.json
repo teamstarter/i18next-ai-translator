@@ -24,6 +24,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:integration": "RUN_INTEGRATION_TESTS=true jest translator.integration",
     "lint": "eslint --ext .js,.ts",
     "lint:fix": "eslint --ext .js,.ts --fix",
     "format": "prettier --write \"src/**/*.ts\"",
