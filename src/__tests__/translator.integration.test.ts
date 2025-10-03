@@ -1,29 +1,28 @@
 import { translateKey } from '../translator';
-import dotenv from 'dotenv';
+import { callOpenAI } from '../openaiClient';
 
-dotenv.config({ quiet: true });
+jest.mock('../openaiClient');
 
-const shouldRunIntegration = process.env.RUN_INTEGRATION_TESTS === 'true';
+describe('translateKey - Integration tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-(shouldRunIntegration ? describe : describe.skip)(
-  'translateKey - Integration tests with real API',
-  () => {
-    const apiKey = process.env.I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY;
+  it('should complete full translation workflow to French', async () => {
+    (callOpenAI as jest.Mock).mockResolvedValue('Connexion');
 
-    beforeAll(() => {
-      if (!apiKey) {
-        throw new Error('API key missing! Set I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY in .env file');
-      }
-    });
+    const result = await translateKey('login', 'fr', 'test-api-key');
 
-    it('should translate "login" to French with real API', async () => {
-      const result = await translateKey('login', 'fr', apiKey!);
+    expect(result).toBe('Connexion');
+    expect(callOpenAI).toHaveBeenCalledWith('Translate "login" to fr', 'test-api-key');
+  });
 
-      expect(result).toBeTruthy();
-      expect(typeof result).toBe('string');
-      expect(result.length).toBeGreaterThan(0);
+  it('should complete full translation workflow to English', async () => {
+    (callOpenAI as jest.Mock).mockResolvedValue('Welcome');
 
-      console.log('Translation result:', result);
-    }, 30000);
-  }
-);
+    const result = await translateKey('bienvenue', 'en', 'test-api-key');
+
+    expect(result).toBe('Welcome');
+    expect(callOpenAI).toHaveBeenCalledWith('Translate "bienvenue" to en', 'test-api-key');
+  });
+});

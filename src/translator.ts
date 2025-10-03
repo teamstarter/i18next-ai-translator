@@ -1,5 +1,5 @@
-import OpenAI from 'openai';
 import debug from 'debug';
+import { callOpenAI } from './openaiClient';
 
 const log = debug('i18next-ai-translator:translator');
 
@@ -16,9 +16,6 @@ export async function translateKey(
     throw new Error('Translation key cannot be empty');
   }
 
-  log('Creating OpenAI client');
-  const openai = new OpenAI({ apiKey });
-
   let prompt = `Translate "${key}" to ${targetLocale}`;
 
   if (referenceContext) {
@@ -29,24 +26,7 @@ export async function translateKey(
   log('Sending request to OpenAI API');
 
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o',
-      messages: [
-        {
-          role: 'system',
-          content:
-            'You are a professional translator. Provide only the translation without any explanations.',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-    });
-
-    const translation = response.choices[0]?.message?.content?.trim() || '';
-    log('Translation received: %s', translation);
+    const translation = await callOpenAI(prompt, apiKey);
 
     if (!translation) {
       log('Warning: Empty translation received from API');
