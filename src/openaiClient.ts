@@ -3,10 +3,14 @@ import debug from 'debug';
 
 const log = debug('i18next-ai-translator:openaiClient');
 
+export function getOpenAIInstance(apiKey: string): OpenAI {
+  return new OpenAI({ apiKey });
+}
+
 export async function callOpenAI(prompt: string, apiKey: string): Promise<string> {
   log('Calling OpenAI API');
 
-  const openai = new OpenAI({ apiKey });
+  const openai = getOpenAIInstance(apiKey);
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
