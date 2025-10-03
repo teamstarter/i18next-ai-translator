@@ -29,3 +29,10 @@ jobs:
 
       - name: Build project
         run: npm run build
+
+      - name: Run integration tests
+        if: ${{ secrets.OPENAI_API_KEY != '' }}
+        env:
+          I18NEXT_AI_TRANSLATOR_CHAT_GPT_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RUN_INTEGRATION_TESTS: 'true'
+        run: npm run test:integration
