@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`readBundleReference should match snapshot for various scenarios 1`] = `
+{
+  "admin": "Admin panel documentation",
+  "default": "Default documentation",
+  "login": "Login flow documentation",
+  "nonexistent": undefined,
+}
+`;
