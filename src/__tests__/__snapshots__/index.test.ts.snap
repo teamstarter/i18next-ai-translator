@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`run should match snapshot for complete workflow 1`] = `
+{
+  "processTranslationsCalled": [
+    [
+      {
+        "filePath": "/locales/admin.fr.json",
+        "keyPath": [
+          "login",
+        ],
+        "locale": "fr",
+      },
+    ],
+    "test-api-key",
+    "Reference content",
+    "/docs/bundles",
+  ],
+  "result": {
+    "failed": 0,
+    "success": 1,
+  },
+}
+`;
