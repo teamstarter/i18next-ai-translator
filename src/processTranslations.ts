@@ -2,6 +2,8 @@ import debug from 'debug';
 import { UntranslatedKey } from './types';
 import { translateKey } from './translator';
 import { writeTranslation } from './fileWriter';
+import { getBundleName } from './getBundleName';
+import { readBundleReference } from './readBundleReference';
 
 const log = debug('i18next-ai-translator:processTranslations');
 
@@ -10,13 +12,14 @@ const log = debug('i18next-ai-translator:processTranslations');
  * @param untranslatedKeys - List of keys to translate
  * @param apiKey - OpenAI API key
  * @param referenceContext - Optional reference context to improve translations
+ * @param bundleReferenceFolder - Optional folder containing the reference files by bundle
  * @returns Number of successful and failed translations
  */
-
 export async function processTranslations(
   untranslatedKeys: UntranslatedKey[],
   apiKey: string,
-  referenceContext?: string
+  referenceContext?: string,
+  bundleReferenceFolder?: string
 ): Promise<{ success: number; failed: number }> {
   log('Starting translation process for %d keys', untranslatedKeys.length);
 
@@ -27,10 +30,23 @@ export async function processTranslations(
     try {
       log('Processing key: %s for locale: %s', key.keyPath.join('.'), key.locale);
 
-      // Extract the text to translate (last element of the keyPath)
       const textToTranslate = key.keyPath[key.keyPath.length - 1];
 
-      const translation = await translateKey(textToTranslate, key.locale, apiKey, referenceContext);
+      let context = referenceContext;
+
+      if (bundleReferenceFolder) {
+        const bundleName = getBundleName(key.filePath);
+        log('Bundle name extracted: %s', bundleName);
+
+        const bundleContext = readBundleReference(bundleReferenceFolder, bundleName);
+
+        if (bundleContext) {
+          log('Using bundle-specific context');
+          context = bundleContext;
+        }
+      }
+
+      const translation = await translateKey(textToTranslate, key.locale, apiKey, context);
       log('Translation received: %s', translation);
 
       writeTranslation(key.filePath, key.keyPath, translation);

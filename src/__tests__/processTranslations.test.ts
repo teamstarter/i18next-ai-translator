@@ -1,10 +1,14 @@
 import { processTranslations } from '../processTranslations';
 import { translateKey } from '../translator';
 import { writeTranslation } from '../fileWriter';
+import { getBundleName } from '../getBundleName';
+import { readBundleReference } from '../readBundleReference';
 import { UntranslatedKey } from '../types';
 
 jest.mock('../translator');
 jest.mock('../fileWriter');
+jest.mock('../getBundleName');
+jest.mock('../readBundleReference');
 
 describe('processTranslations', () => {
   beforeEach(() => {
@@ -209,5 +213,69 @@ describe('processTranslations', () => {
 
     expect(result).toEqual({ success: 1, failed: 0 });
     expect(translateKey).toHaveBeenCalledWith('login', 'fr', 'fake-api-key', referenceContext);
+  });
+  // Test 9 : translate with a bundle-specific reference
+  it('should use bundle-specific reference when available', async () => {
+    const untranslatedKeys: UntranslatedKey[] = [
+      {
+        keyPath: ['login'],
+        locale: 'fr',
+        filePath: '/locales/admin.fr.json',
+      },
+    ];
+    const apiKey = 'fake-api-key';
+    const bundleReferenceFolder = '/docs/bundles';
+
+    (getBundleName as jest.Mock).mockReturnValue('admin');
+
+    (readBundleReference as jest.Mock).mockReturnValue('Admin panel context');
+
+    (translateKey as jest.Mock).mockResolvedValue('Se connecter');
+
+    const result = await processTranslations(
+      untranslatedKeys,
+      apiKey,
+      undefined,
+      bundleReferenceFolder
+    );
+
+    expect(result).toEqual({ success: 1, failed: 0 });
+    expect(getBundleName).toHaveBeenCalledWith('/locales/admin.fr.json');
+    expect(readBundleReference).toHaveBeenCalledWith('/docs/bundles', 'admin');
+    expect(translateKey).toHaveBeenCalledWith('login', 'fr', 'fake-api-key', 'Admin panel context');
+  });
+  // Test 10 : prioritize bundle-specific context over global context
+  it('should prioritize bundle-specific context over global context', async () => {
+    const untranslatedKeys: UntranslatedKey[] = [
+      {
+        keyPath: ['login'],
+        locale: 'fr',
+        filePath: '/locales/admin.fr.json',
+      },
+    ];
+    const apiKey = 'fake-api-key';
+    const globalContext = 'Global reference context';
+    const bundleReferenceFolder = '/docs/bundles';
+
+    (getBundleName as jest.Mock).mockReturnValue('admin');
+
+    (readBundleReference as jest.Mock).mockReturnValue('Admin bundle specific context');
+
+    (translateKey as jest.Mock).mockResolvedValue('Se connecter');
+
+    const result = await processTranslations(
+      untranslatedKeys,
+      apiKey,
+      globalContext,
+      bundleReferenceFolder
+    );
+
+    expect(result).toEqual({ success: 1, failed: 0 });
+    expect(translateKey).toHaveBeenCalledWith(
+      'login',
+      'fr',
+      'fake-api-key',
+      'Admin bundle specific context' // Le contexte bundle, PAS le global
+    );
   });
 });
