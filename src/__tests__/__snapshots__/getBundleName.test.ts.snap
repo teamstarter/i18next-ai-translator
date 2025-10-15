@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`getBundleName should match snapshot for various file formats 1`] = `
+[
+  {
+    "bundleName": "admin",
+    "filePath": "/locales/admin.fr.json",
+  },
+  {
+    "bundleName": "login",
+    "filePath": "/locales/login.en.json",
+  },
+  {
+    "bundleName": "platform",
+    "filePath": "/locales/platform.es.json",
+  },
+  {
+    "bundleName": "default",
+    "filePath": "/locales/fr.json",
+  },
+  {
+    "bundleName": "default",
+    "filePath": "/locales/en.json",
+  },
+  {
+    "bundleName": "default",
+    "filePath": "/Users/dev/project/locales/default.de.json",
+  },
+]
+`;
