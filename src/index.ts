@@ -21,7 +21,7 @@ export async function run(localesFolder: string): Promise<{ success: number; fai
   const translationFiles = readTranslationFiles(localesFolder);
   log('Found %d translation files', translationFiles.length);
 
-  const untranslatedKeys = findUntranslatedKeys(translationFiles);
+  const untranslatedKeys = findUntranslatedKeys(translationFiles, config.defaultValue);
   log('Found %d untranslated keys', untranslatedKeys.length);
 
   if (untranslatedKeys.length === 0) {

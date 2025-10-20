@@ -5,6 +5,7 @@ exports[`envHandler loadConfig should match snapshot with all values 1`] = `
   "apiKey": "snapshot-key",
   "bundleReferenceFolder": "./bundles/",
   "configFile": "./config.js",
+  "defaultValue": "__STRING_NOT_TRANSLATED__",
   "referenceFile": "./reference.md",
 }
 `;
