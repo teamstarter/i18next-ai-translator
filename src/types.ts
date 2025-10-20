@@ -3,6 +3,7 @@ export interface Config {
   referenceFile?: string;
   bundleReferenceFolder?: string;
   configFile?: string;
+  defaultValue: string; 
 }
 export interface UntranslatedKey {
   keyPath: string[];

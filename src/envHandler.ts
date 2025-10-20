@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Config } from './types';
+import { loadDefaultValue } from './configLoader';
 
 dotenv.config();
 
@@ -15,10 +16,15 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
     );
   }
 
+  const configFile = env.I18NEXT_AI_TRANSLATOR_CONFIG;
+
+  const defaultValue = loadDefaultValue(configFile);
+
   return {
     apiKey,
     referenceFile: env.I18NEXT_AI_TRANSLATOR_REFERENCE_FILE,
     bundleReferenceFolder: env.I18NEXT_AI_TRANSLATOR_BUNDLE_REFERENCE_FOLDER,
-    configFile: env.I18NEXT_AI_TRANSLATOR_CONFIG,
+    configFile,
+    defaultValue,
   };
 }

@@ -5,6 +5,12 @@ import { TranslationFile, UntranslatedKey } from './types';
 
 const log = debug('i18next-ai-translator:fileReader');
 
+/**
+ * Read all JSON translation files from a folder
+ * @param localesFolderPath - Path to the folder containing translation files
+ * @returns Array of translation files with their locale and content
+ */
+
 export function readTranslationFiles(localesFolderPath: string): TranslationFile[] {
   log('Reading translation files from: %s', localesFolderPath);
 

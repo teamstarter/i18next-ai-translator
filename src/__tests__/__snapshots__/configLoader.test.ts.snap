@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`loadDefaultValue should match snapshot for various scenarios 1`] = `
+{
+  "customValue1": "MISSING_TRANSLATION",
+  "customValue2": "TODO_TRANSLATE",
+  "noConfig": "__STRING_NOT_TRANSLATED__",
+  "noDefaultValue": "__STRING_NOT_TRANSLATED__",
+  "nonExistentFile": "__STRING_NOT_TRANSLATED__",
+}
+`;

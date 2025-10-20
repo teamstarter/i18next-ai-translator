@@ -18,6 +18,7 @@ describe('envHandler', () => {
         referenceFile: './docs/reference.md',
         bundleReferenceFolder: './docs/bundles/',
         configFile: './config/i18next.config.js',
+        defaultValue: '__STRING_NOT_TRANSLATED__',
       });
     });
 
@@ -34,6 +35,7 @@ describe('envHandler', () => {
         referenceFile: undefined,
         bundleReferenceFolder: undefined,
         configFile: undefined,
+        defaultValue: '__STRING_NOT_TRANSLATED__',
       });
     });
 

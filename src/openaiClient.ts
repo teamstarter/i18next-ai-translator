@@ -3,6 +3,12 @@ import debug from 'debug';
 
 const log = debug('i18next-ai-translator:openaiClient');
 
+/**
+ * Create an OpenAI client instance
+ * @param apiKey - OpenAI API key
+ * @returns OpenAI client instance
+ */
+
 export function getOpenAIInstance(apiKey: string): OpenAI {
   return new OpenAI({ apiKey });
 }
