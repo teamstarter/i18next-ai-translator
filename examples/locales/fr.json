@@ -1,12 +1,12 @@
 {
   "welcome": "Bienvenue",
-  "hello": "__STRING_NOT_TRANSLATED__",
-  "goodbye": "__STRING_NOT_TRANSLATED__",
-  "thank_you": "__STRING_NOT_TRANSLATED__",
+  "hello": "Bonjour",
+  "goodbye": "Au revoir",
+  "thank_you": "Merci",
   "home": "Accueil",
-  "settings": "__STRING_NOT_TRANSLATED__",
+  "settings": "Paramètres",
   "profile": {
-    "title": "__STRING_NOT_TRANSLATED__",
-    "privacy": "__STRING_NOT_TRANSLATED__"
+    "title": "Titre",
+    "privacy": "Confidentialité"
   }
 }

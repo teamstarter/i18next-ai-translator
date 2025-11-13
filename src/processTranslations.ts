@@ -23,10 +23,8 @@ export async function processTranslations(
 ): Promise<{ success: number; failed: number }> {
   log('Starting translation process for %d keys', untranslatedKeys.length);
 
-  let success = 0;
-  let failed = 0;
-
-  for (const key of untranslatedKeys) {
+  // Create an array of promises
+  const translationPromises = untranslatedKeys.map(async key => {
     try {
       log('Processing key: %s for locale: %s', key.keyPath.join('.'), key.locale);
 
@@ -52,12 +50,19 @@ export async function processTranslations(
       writeTranslation(key.filePath, key.keyPath, translation);
       log('Translation written successfully');
 
-      success++;
+      return { success: true }; 
     } catch (error) {
       log('Error translating key %s: %o', key.keyPath.join('.'), error);
-      failed++;
+      return { success: false }; 
     }
-  }
+  });
+
+  // Wait for all promises to resolve
+  const results = await Promise.all(translationPromises);
+
+  // Count the successes and failures
+  const success = results.filter(r => r.success).length;
+  const failed = results.filter(r => !r.success).length;
 
   log('Translation process completed. Success: %d, Failed: %d', success, failed);
 

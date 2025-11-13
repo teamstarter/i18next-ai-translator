@@ -3,14 +3,23 @@ import debug from 'debug';
 
 const log = debug('i18next-ai-translator:openaiClient');
 
+let openaiInstance: OpenAI | null = null;
+
 /**
- * Create an OpenAI client instance
+ * Create an OpenAI client instance (Singleton pattern)
  * @param apiKey - OpenAI API key
  * @returns OpenAI client instance
  */
-
 export function getOpenAIInstance(apiKey: string): OpenAI {
-  return new OpenAI({ apiKey });
+  // If the instance does not exist, create it
+  if (!openaiInstance) {
+    log('Creating new OpenAI instance');
+    openaiInstance = new OpenAI({ apiKey });
+  } else {
+    log('Reusing existing OpenAI instance');
+  }
+
+  return openaiInstance;
 }
 
 export async function callOpenAI(prompt: string, apiKey: string): Promise<string> {

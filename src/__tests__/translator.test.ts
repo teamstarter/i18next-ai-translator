@@ -66,4 +66,28 @@ describe('translateKey', () => {
 
     expect(result).toBe('login');
   });
+  // Test 7 : snapshot of the prompt sent to the API
+  it('should match snapshot for prompt structure', async () => {
+    (callOpenAI as jest.Mock).mockResolvedValue('Se connecter');
+
+    await translateKey('login', 'fr', 'fake-api-key');
+
+    expect(callOpenAI).toHaveBeenCalledTimes(1);
+
+    const calledPrompt = (callOpenAI as jest.Mock).mock.calls[0][0];
+    expect(calledPrompt).toMatchSnapshot();
+  });
+
+  // Test 8 : snapshot of the prompt with reference context
+  it('should match snapshot for prompt with reference context', async () => {
+    (callOpenAI as jest.Mock).mockResolvedValue('Se connecter');
+
+    const referenceContext = 'This is a professional banking platform.';
+    await translateKey('login', 'fr', 'fake-api-key', referenceContext);
+
+    expect(callOpenAI).toHaveBeenCalledTimes(1);
+
+    const calledPrompt = (callOpenAI as jest.Mock).mock.calls[0][0];
+    expect(calledPrompt).toMatchSnapshot();
+  });
 });

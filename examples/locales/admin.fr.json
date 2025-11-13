@@ -1,0 +1,6 @@
+{
+  "user_management": "gestion_utilisateur",
+  "delete_user": "supprimer_utilisateur",
+  "system_settings": "paramètres_du_système",
+  "permissions": "autorisations"
+}

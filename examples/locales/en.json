@@ -1,12 +1,12 @@
 {
   "welcome": "Welcome",
-  "login": "__STRING_NOT_TRANSLATED__",
-  "logout": "__STRING_NOT_TRANSLATED__",
+  "login": "Login",
+  "logout": "Logout",
   "home": "Home",
   "profile": {
-    "title": "__STRING_NOT_TRANSLATED__",
+    "title": "Title",
     "settings": {
-      "privacy": "__STRING_NOT_TRANSLATED__"
+      "privacy": "Privacy"
     }
   }
 }
