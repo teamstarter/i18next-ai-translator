@@ -6,7 +6,6 @@ const log = debug('i18next-ai-translator:translator');
 export async function translateKey(
   key: string,
   targetLocale: string,
-  apiKey: string,
   referenceContext?: string
 ): Promise<string> {
   log('Starting translation for key: %s to locale: %s', key, targetLocale);
@@ -26,7 +25,7 @@ export async function translateKey(
   log('Sending request to OpenAI API');
 
   try {
-    const translation = await callOpenAI(prompt, apiKey);
+    const translation = await callOpenAI(prompt);
 
     if (!translation) {
       log('Warning: Empty translation received from API');

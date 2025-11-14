@@ -1,5 +1,5 @@
 module.exports = {
     options: {
-      defaultValue: 'MISSING_TRANSLATION'
+      defaultValue: '__STRING_NOT_TRANSLATED__'
     }
   };

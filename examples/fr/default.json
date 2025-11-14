@@ -1,0 +1,12 @@
+{
+  "welcome": "Bienvenue",
+  "hello": "Bonjour",
+  "goodbye": "Au revoir",
+  "thank_you": "Merci",
+  "home": "Accueil",
+  "settings": "Paramètres",
+  "profile": {
+    "title": "Titre",
+    "privacy": "Confidentialité"
+  }
+}

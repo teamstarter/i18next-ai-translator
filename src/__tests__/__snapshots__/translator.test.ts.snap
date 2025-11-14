@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`translateKey should match snapshot for prompt structure 1`] = `"Translate "login" to fr"`;
+
+exports[`translateKey should match snapshot for prompt with reference context 1`] = `
+"Translate "login" to fr
+
+Context: This is a professional banking platform."
+`;

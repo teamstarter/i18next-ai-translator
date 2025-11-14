@@ -1,0 +1,12 @@
+{
+  "welcome": "Welcome",
+  "login": "Login",
+  "logout": "Logout",
+  "home": "Home",
+  "profile": {
+    "title": "Title",
+    "settings": {
+      "privacy": "Privacy"
+    }
+  }
+}
