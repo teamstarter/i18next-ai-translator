@@ -14,18 +14,18 @@ describe('translateKey', () => {
     // mock the response of callOpenAI
     (callOpenAI as jest.Mock).mockResolvedValue('Se connecter');
 
-    const result = await translateKey('login', 'fr', 'fake-api-key');
+    const result = await translateKey('login', 'fr');
 
     expect(result).toBe('Se connecter');
     expect(callOpenAI).toHaveBeenCalledTimes(1);
-    expect(callOpenAI).toHaveBeenCalledWith('Translate "login" to fr', 'fake-api-key');
+    expect(callOpenAI).toHaveBeenCalledWith('Translate "login" to fr');
   });
 
   // Test 2 : translate a key to English
   it('should translate a key to English', async () => {
     (callOpenAI as jest.Mock).mockResolvedValue('Log in');
 
-    const result = await translateKey('login', 'en', 'fake-api-key');
+    const result = await translateKey('login', 'en');
 
     expect(result).toBe('Log in');
   });
@@ -35,42 +35,38 @@ describe('translateKey', () => {
     (callOpenAI as jest.Mock).mockResolvedValue('Se connecter à votre compte');
 
     const referenceContext = 'This is a login page for a professional platform';
-    const result = await translateKey('login', 'fr', 'fake-api-key', referenceContext);
+    const result = await translateKey('login', 'fr', referenceContext);
 
     expect(result).toBe('Se connecter à votre compte');
-    expect(callOpenAI).toHaveBeenCalledWith(
-      expect.stringContaining(referenceContext),
-      'fake-api-key'
-    );
+    expect(callOpenAI).toHaveBeenCalledWith(expect.stringContaining(referenceContext));
   });
 
   // Test 4 : error if key is empty
   it('should throw error when key is empty', async () => {
-    await expect(translateKey('', 'fr', 'fake-api-key')).rejects.toThrow(
-      'Translation key cannot be empty'
-    );
+    await expect(translateKey('', 'fr')).rejects.toThrow('Translation key cannot be empty');
   });
 
   // Test 5 : error if API fails
   it('should throw error when API fails', async () => {
     (callOpenAI as jest.Mock).mockRejectedValue(new Error('API Error'));
 
-    await expect(translateKey('login', 'fr', 'fake-api-key')).rejects.toThrow('API Error');
+    await expect(translateKey('login', 'fr')).rejects.toThrow('API Error');
   });
 
   // Test 6 : translation is identical to the key
   it('should handle when translation is identical to the key', async () => {
     (callOpenAI as jest.Mock).mockResolvedValue('login');
 
-    const result = await translateKey('login', 'es', 'fake-api-key');
+    const result = await translateKey('login', 'es');
 
     expect(result).toBe('login');
   });
+
   // Test 7 : snapshot of the prompt sent to the API
   it('should match snapshot for prompt structure', async () => {
     (callOpenAI as jest.Mock).mockResolvedValue('Se connecter');
 
-    await translateKey('login', 'fr', 'fake-api-key');
+    await translateKey('login', 'fr');
 
     expect(callOpenAI).toHaveBeenCalledTimes(1);
 
@@ -83,7 +79,7 @@ describe('translateKey', () => {
     (callOpenAI as jest.Mock).mockResolvedValue('Se connecter');
 
     const referenceContext = 'This is a professional banking platform.';
-    await translateKey('login', 'fr', 'fake-api-key', referenceContext);
+    await translateKey('login', 'fr', referenceContext);
 
     expect(callOpenAI).toHaveBeenCalledTimes(1);
 

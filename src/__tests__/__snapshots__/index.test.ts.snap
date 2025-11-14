@@ -2,6 +2,9 @@
 
 exports[`run should match snapshot for complete workflow 1`] = `
 {
+  "initializeOpenAICalled": [
+    "test-api-key",
+  ],
   "processTranslationsCalled": [
     [
       {
@@ -12,7 +15,6 @@ exports[`run should match snapshot for complete workflow 1`] = `
         "locale": "fr",
       },
     ],
-    "test-api-key",
     "Reference content",
     "/docs/bundles",
   ],

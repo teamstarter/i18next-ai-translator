@@ -6,26 +6,35 @@ const log = debug('i18next-ai-translator:openaiClient');
 let openaiInstance: OpenAI | null = null;
 
 /**
- * Create an OpenAI client instance (Singleton pattern)
+ * Initialize the OpenAI client instance (Singleton pattern)
+ * This should be called once at the start of the application
  * @param apiKey - OpenAI API key
- * @returns OpenAI client instance
  */
-export function getOpenAIInstance(apiKey: string): OpenAI {
-  // If the instance does not exist, create it
+export function initializeOpenAI(apiKey: string): void {
   if (!openaiInstance) {
-    log('Creating new OpenAI instance');
+    log('Initializing OpenAI instance');
     openaiInstance = new OpenAI({ apiKey });
   } else {
-    log('Reusing existing OpenAI instance');
+    log('OpenAI instance already initialized');
   }
+}
 
+/**
+ * Get the OpenAI client instance
+ * @returns OpenAI client instance
+ * @throws Error if the instance has not been initialized
+ */
+function getOpenAIInstance(): OpenAI {
+  if (!openaiInstance) {
+    throw new Error('OpenAI instance not initialized. Call initializeOpenAI first.');
+  }
   return openaiInstance;
 }
 
-export async function callOpenAI(prompt: string, apiKey: string): Promise<string> {
+export async function callOpenAI(prompt: string): Promise<string> {
   log('Calling OpenAI API');
 
-  const openai = getOpenAIInstance(apiKey);
+  const openai = getOpenAIInstance();
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',

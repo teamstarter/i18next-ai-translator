@@ -3,6 +3,7 @@ import fs from 'fs';
 import { loadConfig } from './envHandler';
 import { readTranslationFiles, findUntranslatedKeys } from './fileReader';
 import { processTranslations } from './processTranslations';
+import { initializeOpenAI } from './openaiClient';
 
 const log = debug('i18next-ai-translator:index');
 
@@ -17,6 +18,10 @@ export async function run(localesFolder: string): Promise<{ success: number; fai
 
   const config = loadConfig();
   log('Configuration loaded');
+
+  // Initialize OpenAI instance once at the start
+  initializeOpenAI(config.apiKey);
+  log('OpenAI client initialized');
 
   const translationFiles = readTranslationFiles(localesFolder);
   log('Found %d translation files', translationFiles.length);
@@ -38,7 +43,6 @@ export async function run(localesFolder: string): Promise<{ success: number; fai
   log('Starting translation process');
   const result = await processTranslations(
     untranslatedKeys,
-    config.apiKey,
     referenceContext,
     config.bundleReferenceFolder
   );
